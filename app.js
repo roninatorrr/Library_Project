@@ -5,38 +5,43 @@ console.log("Hello World!\n==========\n");
 // PROJECT Section
 console.log("PROJECT:\n==========\n");
 
-
+const addBook = document.querySelector("#table");
+let button = document.querySelector("#button");
+let input = document.querySelector("#library");
 
 class Book {
-    constructor(title, author, read) {
-        this.title = "title";
-        this.author = "author";
+    constructor(title, author, read, id) {
+        this.title = title;
+        this.author = author;
         this.read = read;
+        this.id = id;
     }
 }
 
 class Library {
-    constructor(books) {
-        this.bookCount = books.length;
+    constructor(bookCount, books) {
+        this.bookCount = bookCount;
         this.books = books;
+        this.nextId = 1;
     }
     markRead (checkbox, id) {
-        for (const id in Library) {
-            if (this.books == this.read) {
+        for (const id in this.books) {
+            if (this.books == this.id) {
+                this.read = true;
                 checkbox = true;
             } else {
                 disabled = true;
             }
-
         }
     }
 
     addBook() {
-        const title = document.getElementById("bookTitle");
-        const author = document.getElementById("bookAuthor");
-        const read = document.getElementById("bookRead");
-        const addedBook = (title.value, author.value, read.checked);
-        const tBody = document.getElementById("tableBody");
+        const title = document.getElementById("Title");
+        const author = document.getElementById("Author");
+        const read = document.getElementById("read");
+        const addedBook = new Book(title.value, author.value, read.checked, this.nextId);
+        this.nextId++;
+        const tBody = document.getElementById("libraryTableBody");
         const tRow = document.createElement("tr");
         const addTitle = document.createElement("td");
         const addAuthor = document.createElement("td");
@@ -54,23 +59,18 @@ class Library {
         tBody.appendChild(tRow);
 
         this.books.push(addedBook);
-        bookCount++;
-    }
+        this.bookCount++;
 
+    }
 }
 
+let library = new Library(0, []);
 
-const addBook = document.querySelector("#addBook");
-
-const lib = document.querySelector("#addBook");
-const btn = document.querySelector("#click");
-btn && btn.addEventListener("click", addBook);
-
-
-
-
-
-
+button.addEventListener("click", (event) => {
+    event.preventDefault();
+    library.addBook();
+      
+});
 
 
 
